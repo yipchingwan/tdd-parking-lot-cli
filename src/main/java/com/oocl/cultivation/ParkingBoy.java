@@ -1,5 +1,8 @@
 package com.oocl.cultivation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParkingBoy {
 
     private final ParkingLot parkingLot;
@@ -8,6 +11,11 @@ public class ParkingBoy {
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
     }
+
+    public ParkingBoy(List<ParkingLot> parkingLots){
+        this.parkingLot = getAvailableParkingLot(parkingLots);
+    }
+
 
     public ParkingTicket park(Car car) {
         // TODO: Please implement the method
@@ -27,15 +35,12 @@ public class ParkingBoy {
                 this.setLastErrorMessage("The car is already been parked.");
                 return null;
             }
-
         }
         else{
             this.setLastErrorMessage("The parking lot is full.");
             return null;
         }
-
     }
-
     public Car fetch(ParkingTicket ticket) {
         // TODO: Please implement the method
         if(ticket==null){
@@ -53,8 +58,6 @@ public class ParkingBoy {
                 return null;
             }
         }
-
-
     }
 
     public String getLastErrorMessage() {
@@ -63,5 +66,15 @@ public class ParkingBoy {
 
     public void setLastErrorMessage(String message) {
         this.lastErrorMessage = message;
+    }
+
+    public ParkingLot getAvailableParkingLot(List<ParkingLot> parkingLots){
+        for (ParkingLot p: parkingLots) {
+            if(p.getAvailableParkingPosition()>0){
+                return p;
+            }
+        }
+        return null;
+
     }
 }

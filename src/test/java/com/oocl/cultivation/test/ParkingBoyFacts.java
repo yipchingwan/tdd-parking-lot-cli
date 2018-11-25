@@ -6,6 +6,9 @@ import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingBoyFacts {
@@ -194,5 +197,23 @@ class ParkingBoyFacts {
 
         assertEquals("Please give me a car to park.", parkingBoy.getLastErrorMessage());
 
+    }
+
+    @Test
+    void should_park_cars_to_multiple_parking_lots(){
+        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot1 = new ParkingLot(1);
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>();
+        parkingLots.add(parkingLot);
+        parkingLots.add(parkingLot1);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car = new Car();
+        Car car1 = new Car();
+
+
+       assertSame(parkingLot, parkingBoy.getAvailableParkingLot(parkingLots));
+       parkingBoy.park(car);
+       assertSame(parkingLot1, parkingBoy.getAvailableParkingLot(parkingLots));
+       parkingBoy.park(car1);
     }
 }
