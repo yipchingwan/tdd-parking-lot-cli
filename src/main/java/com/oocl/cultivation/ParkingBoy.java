@@ -22,6 +22,7 @@ public class ParkingBoy {
             return car;
         }
         else{
+            setLastErrorMessage("Unrecognized parking ticket.");
             return null;
         }
 
@@ -29,5 +30,9 @@ public class ParkingBoy {
 
     public String getLastErrorMessage() {
         return lastErrorMessage;
+    }
+
+    public void setLastErrorMessage(String message) {
+        this.lastErrorMessage = message;
     }
 }
