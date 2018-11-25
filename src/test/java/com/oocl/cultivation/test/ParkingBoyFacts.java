@@ -1,9 +1,6 @@
 package com.oocl.cultivation.test;
 
-import com.oocl.cultivation.Car;
-import com.oocl.cultivation.ParkingBoy;
-import com.oocl.cultivation.ParkingLot;
-import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -208,12 +205,27 @@ class ParkingBoyFacts {
         parkingLots.add(parkingLot1);
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
         Car car = new Car();
+
+        parkingBoy.park(car);
+
+        assertSame(parkingLot1, parkingBoy.getAvailableParkingLot(parkingLots));
+
+    }
+
+    @Test
+    void should_park_cars_using_big_capacity_parkingLot(){
+        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot1 = new ParkingLot(4);
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>();
+        parkingLots.add(parkingLot);
+        parkingLots.add(parkingLot1);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        Car car = new Car();
         Car car1 = new Car();
 
+        ParkingLot result = smartParkingBoy.getAvailableParkingLot(parkingLots);
 
-       assertSame(parkingLot, parkingBoy.getAvailableParkingLot(parkingLots));
-       parkingBoy.park(car);
-       assertSame(parkingLot1, parkingBoy.getAvailableParkingLot(parkingLots));
-       parkingBoy.park(car1);
+        assertSame(parkingLot1, result);
+
     }
 }

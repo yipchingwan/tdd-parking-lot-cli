@@ -5,9 +5,9 @@ import java.util.List;
 
 public class ParkingBoy {
 
-    private ParkingLot parkingLot;
-    private final List<ParkingLot> parkingLots;
-    private String lastErrorMessage;
+    protected ParkingLot parkingLot;
+    protected final List<ParkingLot> parkingLots;
+    protected String lastErrorMessage;
 
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
@@ -81,7 +81,6 @@ public class ParkingBoy {
                 return p;
             }
         }
-
         return null;
 
     }
