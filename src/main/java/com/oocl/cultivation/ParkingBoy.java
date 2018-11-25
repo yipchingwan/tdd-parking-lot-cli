@@ -17,8 +17,14 @@ public class ParkingBoy {
 
     public Car fetch(ParkingTicket ticket) {
         // TODO: Please implement the method
-        Car car = ticket.getCar();
-        return car;
+        if(ticket.checkIfTicketIsVaild()){
+            Car car = ticket.getCar();
+            return car;
+        }
+        else{
+            return null;
+        }
+
     }
 
     public String getLastErrorMessage() {
