@@ -1,5 +1,7 @@
 package com.oocl.cultivation;
 
+import sun.security.krb5.internal.Ticket;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,5 +19,13 @@ public class ParkingLot {
 
     public int getAvailableParkingPosition() {
         return cars.size() - capacity;
+    }
+
+    public void addCarToLot(ParkingTicket ticket, Car car){
+        cars.put(ticket, car);
+    }
+
+    public Car removeCarFromLot (ParkingTicket ticket){
+        return cars.remove(ticket);
     }
 }

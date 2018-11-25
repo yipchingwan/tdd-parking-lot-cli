@@ -22,5 +22,11 @@ public class ParkingTicket {
         return this.isTicketVaild;
     }
 
+    public void setTicketVaild(boolean status){
+        this.isTicketVaild = status;
+    }
+
+
+
 
 }
