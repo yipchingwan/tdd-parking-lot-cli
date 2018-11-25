@@ -30,7 +30,7 @@ public class ParkingBoy {
             return null;
         }
 
-        if(this.getAvailableParkingLot(parkingLots)!=null){
+        if(this.getAvailableParkingLot(parkingLots)!=null && this.getAvailableParkingLot(parkingLots).getAvailableParkingPosition()>0){
             this.parkingLot = this.getAvailableParkingLot(parkingLots);
             if(car.getParkedStatus()){
                 ParkingTicket ticket = new ParkingTicket(car);

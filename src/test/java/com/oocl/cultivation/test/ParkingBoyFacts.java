@@ -228,4 +228,25 @@ class ParkingBoyFacts {
         assertSame(parkingLot1, result);
 
     }
+
+    // (1, 1) --> (1/2, 1) , (1/2, 1/3)
+    @Test
+    void should_pickup_the_largest_available_position_rate_parkingLot(){
+        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingLot parkingLot1 = new ParkingLot(3);
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>();
+        parkingLots.add(parkingLot);
+        parkingLots.add(parkingLot1);
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLots);
+        Car car = new Car();
+        Car car1 = new Car();
+
+        superSmartParkingBoy.park(car);
+        superSmartParkingBoy.park(car1);
+        ParkingLot result = superSmartParkingBoy.getAvailableParkingLot(parkingLots);
+
+        assertSame(parkingLot, result);
+
+    }
+
 }

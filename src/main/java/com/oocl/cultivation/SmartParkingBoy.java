@@ -16,9 +16,9 @@ public class SmartParkingBoy extends ParkingBoy {
         for (ParkingLot parkingLot:parkingLots) {
             if(parkingLot.getAvailableParkingPosition()>maxParkingLot.getAvailableParkingPosition() && parkingLot.getAvailableParkingPosition()>0){
                 maxParkingLot = parkingLot;
-                return maxParkingLot;
             }
+
         }
-        return null;
+        return maxParkingLot;
     }
 }
