@@ -18,7 +18,7 @@ public class ParkingLot {
     }
 
     public int getAvailableParkingPosition() {
-        return cars.size() - capacity;
+        return capacity - cars.size();
     }
 
     public void addCarToLot(ParkingTicket ticket, Car car){
@@ -27,5 +27,9 @@ public class ParkingLot {
 
     public Car removeCarFromLot (ParkingTicket ticket){
         return cars.remove(ticket);
+    }
+
+    public int getCapacity(){
+        return this.capacity;
     }
 }

@@ -12,10 +12,16 @@ public class ParkingBoy {
     public ParkingTicket park(Car car) {
         // TODO: Please implement the method
         setLastErrorMessage(null);
+        if(this.parkingLot.getAvailableParkingPosition()>0){
+            ParkingTicket ticket = new ParkingTicket(car);
+            this.parkingLot.addCarToLot(ticket, car);
+            return ticket;
+        }
+        else{
+            this.setLastErrorMessage("The parking lot is full.");
+            return null;
+        }
 
-        ParkingTicket ticket = new ParkingTicket(car);
-        this.parkingLot.addCarToLot(ticket, car);
-        return ticket;
     }
 
     public Car fetch(ParkingTicket ticket) {
