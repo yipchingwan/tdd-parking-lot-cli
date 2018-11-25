@@ -286,6 +286,23 @@ class ParkingBoyFacts {
         assertSame(firstCar, fetchedByFirstTicket);
         assertSame(secondCar, fetchedBySecondTicket);
     }
-  
+
+    @Test
+    void should_park_a_car_to_a_parking_lot_and_get_it_back_for_parkingboy_NOT_from_ManagerParkingBoysList() {
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        ParkingBoy parkingBoy1 = new ParkingBoy(parkingLot);
+        List<ParkingBoy>  parkingBoyList = new ArrayList<ParkingBoy>();
+        List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+        parkingLotList.add(parkingLot);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLotList, parkingBoyList);
+        Car car = new Car();
+
+        ParkingTicket ticket = parkingLotServiceManager.askParkingBoyParkCar(parkingBoy, car);
+        Car fetched = parkingLotServiceManager.askParkingBoyFetchCar(parkingBoy1, ticket);
+
+        assertNull(ticket);
+        assertNull(fetched);
+    }
 
 }
