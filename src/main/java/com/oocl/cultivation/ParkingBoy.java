@@ -12,6 +12,10 @@ public class ParkingBoy {
     public ParkingTicket park(Car car) {
         // TODO: Please implement the method
         setLastErrorMessage(null);
+        if(car==null){
+            this.setLastErrorMessage("Please give me a car to park.");
+            return null;
+        }
         if(this.parkingLot.getAvailableParkingPosition()>0){
             if(car.getParkedStatus()){
                 ParkingTicket ticket = new ParkingTicket(car);

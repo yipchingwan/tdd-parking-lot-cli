@@ -161,7 +161,7 @@ class ParkingBoyFacts {
         ParkingTicket ticket = parkingBoy.park(car);
         ParkingTicket ticket1 = parkingBoy.park(car);
 
-        assertEquals("The car is already been parked.", parkingBoy.getLastErrorMessage());
+        assertNull(ticket1);
     }
 
     @Test
@@ -172,5 +172,27 @@ class ParkingBoyFacts {
 
         ParkingTicket ticket = parkingBoy.park(car);
         ParkingTicket ticket1 = parkingBoy.park(car);
+        assertEquals("The car is already been parked.", parkingBoy.getLastErrorMessage());
+    }
+
+    @Test
+    void should_not_park_car_if_there_is_no_car_been_given(){
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        ParkingTicket ticket = parkingBoy.park(null);
+
+        assertNull(ticket);
+
+    }
+    @Test
+    void should_get_message_if_there_is_no_car_been_given(){
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        ParkingTicket ticket = parkingBoy.park(null);
+
+        assertEquals("Please give me a car to park.", parkingBoy.getLastErrorMessage());
+
     }
 }
