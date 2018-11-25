@@ -24,7 +24,11 @@ public class ParkingLotServiceManager extends ParkingBoy {
 
     public ParkingTicket askParkingBoyParkCar(ParkingBoy parkingBoy, Car car){
         if(this.parkingBoysList.contains(parkingBoy)){
-            return parkingBoy.park(car);
+            ParkingTicket parkingTicket = parkingBoy.park(car);
+            if(parkingBoy.getLastErrorMessage()!=null){
+                this.setLastErrorMessage("<Manager>: "+parkingBoy.getLastErrorMessage());
+            }
+            return parkingTicket;
         }
         else{
             return null;
@@ -32,7 +36,11 @@ public class ParkingLotServiceManager extends ParkingBoy {
     }
     public Car askParkingBoyFetchCar(ParkingBoy parkingBoy, ParkingTicket ticket){
         if(this.parkingBoysList.contains(parkingBoy)){
-            return parkingBoy.fetch(ticket);
+            Car fetchedCar = parkingBoy.fetch(ticket);
+            if(parkingBoy.getLastErrorMessage()!=null){
+                this.setLastErrorMessage("<Manager>: "+parkingBoy.getLastErrorMessage());
+            }
+            return fetchedCar;
         }
         else{
             return null;

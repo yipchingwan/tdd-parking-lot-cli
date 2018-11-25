@@ -334,4 +334,109 @@ class ParkingBoyFacts {
         assertSame(secondCar, fetchedBySecondTicket);
     }
 
+    @Test
+    void should_query_message_once_the_ticket_is_wrong_from_manager() {
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        List<ParkingBoy>  parkingBoyList = new ArrayList<ParkingBoy>();
+        parkingBoyList.add(parkingBoy);
+        List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+        parkingLotList.add(parkingLot);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLotList, parkingBoyList);
+
+        ParkingTicket wrongTicket = new ParkingTicket();
+
+        parkingLotServiceManager.askParkingBoyFetchCar(parkingBoy,wrongTicket);
+        String message = parkingLotServiceManager.getLastErrorMessage();
+
+        assertEquals("<Manager>: Unrecognized parking ticket.", message);
+    }
+
+    @Test
+    void should_query_message_once_ticket_is_not_provided_from_manager() {
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        List<ParkingBoy>  parkingBoyList = new ArrayList<ParkingBoy>();
+        parkingBoyList.add(parkingBoy);
+        List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+        parkingLotList.add(parkingLot);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLotList, parkingBoyList);
+
+        parkingLotServiceManager.askParkingBoyFetchCar(parkingBoy,null);
+
+        assertEquals(
+                "<Manager>: Please provide your parking ticket.",
+                parkingLotServiceManager.getLastErrorMessage());
+    }
+
+    @Test
+    void should_query_error_message_for_used_ticket_from_manager() {
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        List<ParkingBoy>  parkingBoyList = new ArrayList<ParkingBoy>();
+        parkingBoyList.add(parkingBoy);
+        List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+        parkingLotList.add(parkingLot);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLotList, parkingBoyList);
+        Car car = new Car();
+
+        ParkingTicket ticket = parkingLotServiceManager.askParkingBoyParkCar(parkingBoy,car);
+        parkingLotServiceManager.askParkingBoyFetchCar(parkingBoy,ticket);
+        parkingLotServiceManager.askParkingBoyFetchCar(parkingBoy,ticket);
+
+        assertEquals(
+                "<Manager>: Unrecognized parking ticket.",
+                parkingLotServiceManager.getLastErrorMessage()
+        );
+    }
+
+    @Test
+    void should_get_message_if_there_is_not_enough_position_from_manager() {
+        final int capacity = 1;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        List<ParkingBoy>  parkingBoyList = new ArrayList<ParkingBoy>();
+        parkingBoyList.add(parkingBoy);
+        List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+        parkingLotList.add(parkingLot);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLotList, parkingBoyList);;
+
+        parkingLotServiceManager.askParkingBoyParkCar(parkingBoy,new Car());
+        parkingLotServiceManager.askParkingBoyParkCar(parkingBoy,new Car());
+
+        assertEquals("<Manager>: The parking lot is full.", parkingLotServiceManager.getLastErrorMessage());
+    }
+
+    @Test
+    void should_get_message_if_paking_a_parked_car_from_manager(){
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        List<ParkingBoy>  parkingBoyList = new ArrayList<ParkingBoy>();
+        parkingBoyList.add(parkingBoy);
+        List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+        parkingLotList.add(parkingLot);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLotList, parkingBoyList);
+        Car car = new Car();
+
+        ParkingTicket ticket = parkingLotServiceManager.askParkingBoyParkCar(parkingBoy,car);
+        ParkingTicket ticket1 = parkingLotServiceManager.askParkingBoyParkCar(parkingBoy,car);
+        assertEquals("<Manager>: The car is already been parked.", parkingLotServiceManager.getLastErrorMessage());
+    }
+
+    @Test
+    void should_get_message_if_there_is_no_car_been_given_from_manager(){
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        List<ParkingBoy>  parkingBoyList = new ArrayList<ParkingBoy>();
+        parkingBoyList.add(parkingBoy);
+        List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+        parkingLotList.add(parkingLot);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLotList, parkingBoyList);
+
+        ParkingTicket ticket = parkingLotServiceManager.askParkingBoyParkCar(parkingBoy,null);
+
+        assertEquals("<Manager>: Please give me a car to park.", parkingLotServiceManager.getLastErrorMessage());
+
+    }
+
 }
