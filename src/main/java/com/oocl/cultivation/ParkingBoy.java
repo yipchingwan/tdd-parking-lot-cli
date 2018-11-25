@@ -56,7 +56,7 @@ public class ParkingBoy {
         }
         else{
             if(ticket.checkIfTicketIsVaild()){
-                Car car = this.parkingLot.removeCarFromLot(ticket);
+                Car car = this.findParkingLotFromTicket(ticket).removeCarFromLot(ticket);
                 ticket.setTicketVaild(false);
                 return car;
             }
@@ -83,5 +83,14 @@ public class ParkingBoy {
         }
         return null;
 
+    }
+
+    public ParkingLot findParkingLotFromTicket(ParkingTicket parkingTicket){
+        for (ParkingLot parkingLot: this.parkingLots) {
+            if(parkingLot.getCarsList().containsKey(parkingTicket)){
+                return parkingLot;
+            }
+        }
+        return null;
     }
 }

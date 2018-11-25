@@ -35,4 +35,8 @@ public class ParkingLot {
     public int getCapacity(){
         return this.capacity;
     }
+
+    public Map<ParkingTicket, Car> getCarsList(){
+        return this.cars;
+    }
 }

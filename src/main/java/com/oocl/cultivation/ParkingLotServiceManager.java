@@ -8,6 +8,11 @@ import java.util.List;
 public class ParkingLotServiceManager extends ParkingBoy {
     private final List<ParkingBoy> parkingBoysList;
 
+    public ParkingLotServiceManager(ParkingLot parkingLot){
+        super(parkingLot);
+        this.parkingBoysList = null;
+    }
+
     public ParkingLotServiceManager(List<ParkingLot> parkingLots, List<ParkingBoy> parkingBoysList) {
         super(parkingLots);
         this.parkingBoysList = parkingBoysList;
@@ -32,5 +37,24 @@ public class ParkingLotServiceManager extends ParkingBoy {
         else{
             return null;
         }
+    }
+
+    public ParkingTicket park(Car car, ParkingLot parkingLot) {
+        if(this.parkingLots.contains(parkingLot)){
+            return super.park(car);
+        }
+        else{
+            return null;
+        }
+    }
+
+    public Car fetch(ParkingTicket ticket, ParkingLot parkingLot) {
+        if(this.parkingLots.contains(parkingLot)){
+            return super.fetch(ticket);
+        }
+        else{
+            return null;
+        }
+
     }
 }

@@ -305,4 +305,33 @@ class ParkingBoyFacts {
         assertNull(fetched);
     }
 
+    @Test
+    void should_park_a_car_to_a_parking_lot_and_get_it_back_from_manager() {
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLot);
+        Car car = new Car();
+
+        ParkingTicket ticket = parkingLotServiceManager.park(car);
+        Car fetched = parkingLotServiceManager.fetch(ticket);
+
+        assertSame(fetched, car);
+    }
+
+    @Test
+    void should_park_multiple_cars_to_a_parking_lot_and_get_them_back_from_manager() {
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLot);
+        Car firstCar = new Car();
+        Car secondCar = new Car();
+
+        ParkingTicket firstTicket = parkingLotServiceManager.park(firstCar);
+        ParkingTicket secondTicket = parkingLotServiceManager.park(secondCar);
+
+        Car fetchedByFirstTicket = parkingLotServiceManager.fetch(firstTicket);
+        Car fetchedBySecondTicket = parkingLotServiceManager.fetch(secondTicket);
+
+        assertSame(firstCar, fetchedByFirstTicket);
+        assertSame(secondCar, fetchedBySecondTicket);
+    }
+
 }
