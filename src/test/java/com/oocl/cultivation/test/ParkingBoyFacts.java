@@ -151,4 +151,26 @@ class ParkingBoyFacts {
 
         assertEquals("The parking lot is full.", parkingBoy.getLastErrorMessage());
     }
+
+    @Test
+    void should_not_park_a_parked_car(){
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        Car car = new Car();
+
+        ParkingTicket ticket = parkingBoy.park(car);
+        ParkingTicket ticket1 = parkingBoy.park(car);
+
+        assertEquals("The car is already been parked.", parkingBoy.getLastErrorMessage());
+    }
+
+    @Test
+    void should_get_message_if_paking_a_parked_car(){
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        Car car = new Car();
+
+        ParkingTicket ticket = parkingBoy.park(car);
+        ParkingTicket ticket1 = parkingBoy.park(car);
+    }
 }

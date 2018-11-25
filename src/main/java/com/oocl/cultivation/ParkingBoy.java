@@ -13,9 +13,17 @@ public class ParkingBoy {
         // TODO: Please implement the method
         setLastErrorMessage(null);
         if(this.parkingLot.getAvailableParkingPosition()>0){
-            ParkingTicket ticket = new ParkingTicket(car);
-            this.parkingLot.addCarToLot(ticket, car);
-            return ticket;
+            if(car.getParkedStatus()){
+                ParkingTicket ticket = new ParkingTicket(car);
+                car.setParkedStatus(false);
+                this.parkingLot.addCarToLot(ticket, car);
+                return ticket;
+            }
+            else{
+                this.setLastErrorMessage("The car is already been parked.");
+                return null;
+            }
+
         }
         else{
             this.setLastErrorMessage("The parking lot is full.");
