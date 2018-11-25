@@ -246,7 +246,46 @@ class ParkingBoyFacts {
         ParkingLot result = superSmartParkingBoy.getAvailableParkingLot(parkingLots);
 
         assertSame(parkingLot, result);
-
     }
+
+    @Test
+    void should_park_a_car_to_a_parking_lot_and_get_it_back_for_parkingboy_from_ManagerParkingBoysList() {
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        List<ParkingBoy>  parkingBoyList = new ArrayList<ParkingBoy>();
+        parkingBoyList.add(parkingBoy);
+        List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+        parkingLotList.add(parkingLot);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLotList, parkingBoyList);
+        Car car = new Car();
+
+        ParkingTicket ticket = parkingLotServiceManager.askParkingBoyParkCar(parkingBoy, car);
+        Car fetched = parkingLotServiceManager.askParkingBoyFetchCar(parkingBoy, ticket);
+
+        assertSame(fetched, car);
+    }
+
+    @Test
+    void should_park_multiple_cars_to_a_parking_lot_and_get_them_back_for_parkingboy_from_ManagerParkingBoysList() {
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        List<ParkingBoy>  parkingBoyList = new ArrayList<ParkingBoy>();
+        parkingBoyList.add(parkingBoy);
+        List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+        parkingLotList.add(parkingLot);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLotList, parkingBoyList);
+        Car firstCar = new Car();
+        Car secondCar = new Car();
+
+        ParkingTicket firstTicket = parkingLotServiceManager.askParkingBoyParkCar(parkingBoy, firstCar);
+        ParkingTicket secondTicket = parkingLotServiceManager.askParkingBoyParkCar(parkingBoy, secondCar);
+
+        Car fetchedByFirstTicket = parkingLotServiceManager.askParkingBoyFetchCar(parkingBoy, firstTicket);
+        Car fetchedBySecondTicket = parkingLotServiceManager.askParkingBoyFetchCar(parkingBoy, secondTicket);
+
+        assertSame(firstCar, fetchedByFirstTicket);
+        assertSame(secondCar, fetchedBySecondTicket);
+    }
+  
 
 }
