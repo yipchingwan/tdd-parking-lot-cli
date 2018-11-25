@@ -5,15 +5,20 @@ import java.util.List;
 
 public class ParkingBoy {
 
-    private final ParkingLot parkingLot;
+    private ParkingLot parkingLot;
+    private final List<ParkingLot> parkingLots;
     private String lastErrorMessage;
 
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
+        this.parkingLots = new ArrayList<ParkingLot>();
+        this.parkingLots.add(parkingLot);
     }
 
     public ParkingBoy(List<ParkingLot> parkingLots){
-        this.parkingLot = getAvailableParkingLot(parkingLots);
+        this.parkingLots = parkingLots;
+        this.parkingLot = this.getAvailableParkingLot(parkingLots);
+
     }
 
 
@@ -24,7 +29,9 @@ public class ParkingBoy {
             this.setLastErrorMessage("Please give me a car to park.");
             return null;
         }
-        if(this.parkingLot.getAvailableParkingPosition()>0){
+
+        if(this.getAvailableParkingLot(parkingLots)!=null){
+            this.parkingLot = this.getAvailableParkingLot(parkingLots);
             if(car.getParkedStatus()){
                 ParkingTicket ticket = new ParkingTicket(car);
                 car.setParkedStatus(false);
@@ -74,6 +81,7 @@ public class ParkingBoy {
                 return p;
             }
         }
+
         return null;
 
     }
