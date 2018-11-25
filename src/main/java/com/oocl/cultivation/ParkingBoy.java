@@ -11,6 +11,7 @@ public class ParkingBoy {
 
     public ParkingTicket park(Car car) {
         // TODO: Please implement the method
+        setLastErrorMessage(null);
         ParkingTicket ticket = new ParkingTicket(car);
         return ticket;
     }
